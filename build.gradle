@@ -1,0 +1,56 @@
+plugins {
+	id 'java'
+	id 'war'
+	id 'org.springframework.boot' version '3.2.5'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.ferreteria'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '21'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	//Spring Boot
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//Despliegue en la web
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//JSP
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	//Notaciones de Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// JSTL dependencies
+	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:2.0.0'
+	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0'
+	//Generar PDF
+	implementation 'com.itextpdf:itext7-core:7.1.14'
+
+	//Seguridad
+
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	//Driver de MySQL
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
